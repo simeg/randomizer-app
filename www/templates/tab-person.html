@@ -1,0 +1,47 @@
+<ion-view view-title="Person" ng-controller="PersonCtrl">
+  <ion-content class="padding">
+    <h5>Task</h5>
+    <div>
+      <label class="item item-input">
+        <input type="text" placeholder="What is the task? (E.g. go buy snacks)">
+      </label>
+    </div>
+    <h5>Add a new person</h5>
+    <label class="item item-input">
+      <input type="text" placeholder="Name" ng-model="name">
+      <button class="button button-positive button-small" style="margin-right: 5px;"
+        ng-click="addPerson(name)">
+        Add
+      </button>
+    </label>
+    <div class="person-name-list-container">
+      <ul ng-if="personList.length > 0" ng-repeat="name in personList">
+        <li>{{name}}</li>
+      </ul>
+    </div>
+ <!--   <div class="list card">
+      <div class="item item-divider">Recent Updates</div>
+      <div class="item item-body">
+        <div>
+          There is a fire in <b>sector 3</b>
+        </div>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">Health</div>
+      <div class="item item-body">
+        <div>
+          You ate an apple today!
+        </div>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">Upcoming</div>
+      <div class="item item-body">
+        <div>
+          You have <b>29</b> meetings on your calendar tomorrow.
+        </div>
+      </div>
+    </div>-->
+  </ion-content>
+</ion-view>
