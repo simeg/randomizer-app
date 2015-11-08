@@ -75,6 +75,14 @@ angular.module('starter.controllers', [])
       $scope.personList = Persons.get();
     };
 
+    // -----
+
+    activateSpinner = function() {
+      var container = $.getElementsByClassName("spinner-container");
+      var spinner = new Spinner(opts).spin(target);
+
+    }
+
     spliceRandomName = function(personList) {
       var index = Math.floor(Math.random() * (personList.length + 1 - 1));
       var name = personList.splice(index, 1);
