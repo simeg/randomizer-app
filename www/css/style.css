@@ -1,5 +1,29 @@
+/* Common */
+#loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 51, 51, 0.3);
+  margin: 0;
+  padding: 0;
+  z-index: 99;
+  display: none;
+}
+
+#loading-screen > div {
+  /*background: #EEE;*/
+}
+
 /* Person template */
 #person-button-add {
   margin-right: 5px;
   width: 50px;
+}
+
+#apa {
+  height: 100px;
+  width: 100px;
+  background-color: #009689;
 }

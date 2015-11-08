@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
   // TODO: A clear button which appears after successful randomize is complete
 
-  .controller('PersonCtrl', function($scope, Persons) {
+  .controller('PersonCtrl', function($scope, Persons, $timeout) {
     $scope.personList = [];
     $scope.winners = [];
 
@@ -14,7 +14,6 @@ angular.module('starter.controllers', [])
     $scope.settings.isMultiplePeople = false;
 
     $scope.personList = Persons.get();
-    //$scope.personList = ["Simon", "Beatrice", "Joel"];
 
     $scope.addPerson = function(name) {
       if (name === "" || name === null || name === undefined || name.length >= 10) {
@@ -67,6 +66,7 @@ angular.module('starter.controllers', [])
           console.debug("No task set");
         }
       }
+      activateSpinner();
     };
 
     resetInput = function() {
@@ -78,10 +78,37 @@ angular.module('starter.controllers', [])
     // -----
 
     activateSpinner = function() {
-      var container = $.getElementsByClassName("spinner-container");
-      var spinner = new Spinner(opts).spin(target);
+      $("#loading-screen").fadeIn();
 
-    }
+      setTimeout(function() {
+        $("#loading-screen").fadeOut();
+      }, 1000);
+
+      var opts = {
+        lines: 11 // The number of lines to draw
+        , length: 27 // The length of each line
+        , width: 20 // The line thickness
+        , radius: 70 // The radius of the inner circle
+        , scale: 0.5 // Scales overall size of the spinner
+        , corners: 1 // Corner roundness (0..1)
+        , color: '#000' // #rgb or #rrggbb or array of colors
+        , opacity: 0.25 // Opacity of the lines
+        , rotate: 0 // The rotation offset
+        , direction: 1 // 1: clockwise, -1: counterclockwise
+        , speed: 1 // Rounds per second
+        , trail: 60 // Afterglow percentage
+        , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+        , zIndex: 2e9 // The z-index (defaults to 2000000000)
+        , className: 'spinner' // The CSS class to assign to the spinner
+        , top: '50%' // Top position relative to parent
+        , left: '50%' // Left position relative to parent
+        , shadow: false  // Whether to render a shadow
+        , hwaccel: true // Whether to use hardware acceleration
+        , position: 'absolute' // Element positioning
+      };
+      var target = document.getElementById('loading-screen');
+      var spinner = new Spinner(opts).spin(target);
+    };
 
     spliceRandomName = function(personList) {
       var index = Math.floor(Math.random() * (personList.length + 1 - 1));

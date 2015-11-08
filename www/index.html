@@ -7,8 +7,11 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://spin.js.org/jquery.spin.js"></script>
+    <link href="lib/spin/stylesheets/jquery.spin.css" rel="stylesheet">
+
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/spin/javascripts/jquery.spin.js"></script>
+    <script src="lib/spin.js/spin.js"></script>
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -27,10 +30,12 @@
     <script src="js/directives.js"></script>
   </head>
   <body ng-app="starter">
+    <div id="loading-screen"></div>
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
     <ion-nav-bar class="bar-stable">
+
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>
