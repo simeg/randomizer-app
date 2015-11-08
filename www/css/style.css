@@ -1,1 +1,5 @@
-/* Empty. Add your own CSS if you like */
+/* Person template */
+#person-button-add {
+  margin-right: 5px;
+  width: 50px;
+}

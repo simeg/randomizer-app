@@ -1,5 +1,40 @@
 angular.module('starter.services', [])
 
+  .factory('Persons', function() {
+    var persons = [];
+    var maxNameLength = 10;
+
+    return {
+      add: function(name) {
+        for (var i = 0; i < persons.length; i++) {
+          var person = persons[i];
+          if (name === person) {
+            console.debug("Name already exists in list, not adding to list");
+            // Person already exists in list
+            // TODO: Display error
+            return;
+          }
+        }
+
+        console.debug("Unique name, adding to list");
+        // Name is unique, add to list
+        persons.push(name);
+      },
+      get: function() {
+        return persons;
+      },
+      getAtIndex: function(index) {
+        return persons.splice(parseInt(index), 1)[0];
+      },
+      set: function(newPersons) {
+        persons = newPersons;
+      },
+      clear: function() {
+        persons = [];
+      }
+    }
+  })
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
