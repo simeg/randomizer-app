@@ -1,7 +1,5 @@
-<ion-view view-title="Person">
+<ion-view view-title="Person" id="view-person">
   <ion-content class="padding">
-
-
 
     <!-- Task -->
     <h4>Task</h4>
@@ -46,6 +44,8 @@
       </ul>
     </div>
 
+    <h1>{{settings.task}}</h1>
+
     <!-- Number of people -->
     <div class="list" ng-if="settings.isMultiplePeople && personList.length > 2">
       <h4>How many should do the task?</h4>
@@ -55,9 +55,9 @@
       </label>
     </div>
     <button id="person-randomize-button" ng-click="randomizePerson()">
+    <!--<button id="person-randomize-button" ng-click="testButton()">-->
       Randomize
     </button>
-    <h2 ng-if="winners.length > 0">{{winners.length > 1 ? "Winners: " + winners.join(", ") : "Winner: " + winners[0]}}</h2>
   </ion-content>
 
   <!-- Footer -->

@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
   // TODO: A clear button which appears after successful randomize is complete
 
-  .controller('PersonCtrl', function($scope, Persons, $timeout) {
+  .controller('PersonCtrl', function($scope, Persons, $state) {
     $scope.personList = [];
     $scope.winners = [];
 
@@ -66,11 +66,12 @@ angular.module('starter.controllers', [])
           console.debug("No task set");
         }
       }
+
       activateSpinner();
     };
 
     resetInput = function() {
-      $scope.settings = {};
+      //$scope.settings = {};
       Persons.clear();
       $scope.personList = Persons.get();
     };
@@ -79,10 +80,19 @@ angular.module('starter.controllers', [])
 
     activateSpinner = function() {
       $("#loading-screen").fadeIn();
+      $("#view-person").fadeOut();
+
+      var a = $scope.settings.task;
+      debugger;
 
       setTimeout(function() {
-        $("#loading-screen").fadeOut();
-      }, 1000);
+        var a = $scope.settings.task;
+        debugger;
+        $state.go("tab.result", { winner: $scope.winners, task: $scope.settings.task } );
+        setTimeout(function() {
+          $("#loading-screen").fadeOut();
+        }, 10);
+      }, 2000);
 
       var opts = {
         lines: 11 // The number of lines to draw
@@ -118,8 +128,10 @@ angular.module('starter.controllers', [])
   })
 
   .controller('MovieCtrl', function($scope) {
-
   })
-
+  .controller('ResultCtrl', function($scope, $state, $stateParams) {
+    $scope.winner = $stateParams["winner"] || "No winner";
+    $scope.task = $stateParams["task"] || "No task";
+  })
   .controller('CustomCtrl', function($scope) {
   });
