@@ -1,63 +1,7 @@
 <ion-view view-title="Person" id="view-person">
   <ion-content class="padding">
 
-    <!-- Task -->
-    <h4>Task</h4>
-    <div id="person-task-container">
-      <label class="item item-input">
-        <input type="text" placeholder="What is the task? (E.g. go buy snacks)" ng-model="settings.task">
-      </label>
-    </div>
-
-    <!-- Add new person -->
-    <h4>Add a new person</h4>
-    <div class="item item-input">
-      <input class="item-input-wrapper" type="text" placeholder="Name" ng-model="settings.newName">
-      <button class="button button-positive button-small" id="person-button-add"
-              ng-click="addPerson(settings.newName)">
-        Add
-      </button>
-    </div>
-
-    <!-- Person list -->
-    <div class="list" id="person-name-list-container" ng-if="personList.length">
-      <h4>Persons</h4>
-      <ul ng-if="personList.length > 0" ng-repeat="name in personList">
-        <li>{{name}}</li>
-      </ul>
-    </div>
-
-    <br ng-if="personList.length === 0" />
-
-    <!-- Toggle single/multi people to do task -->
-    <div class="list">
-      <ul>
-        <li class="item item-toggle">
-          Multiple people to do task
-          <label class="toggle toggle-balanced">
-            <input type="checkbox" ng-model="settings.isMultiplePeople">
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
-        </li>
-      </ul>
-    </div>
-
-    <h1>{{settings.task}}</h1>
-
-    <!-- Number of people -->
-    <div class="list" ng-if="settings.isMultiplePeople && personList.length > 2">
-      <h4>How many should do the task?</h4>
-      <label class="item item-input">
-        <input type="number" placeholder="Max {{personList.length - 1}} can be chosen"
-               ng-model="settings.nrOfPeople">
-      </label>
-    </div>
-    <button id="person-randomize-button" ng-click="randomizePerson()">
-    <!--<button id="person-randomize-button" ng-click="testButton()">-->
-      Randomize
-    </button>
+  <randomize-task></randomize-task>
   </ion-content>
 
   <!-- Footer -->

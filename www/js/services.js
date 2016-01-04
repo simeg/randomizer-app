@@ -1,85 +1,84 @@
 angular.module('starter.services', [])
 
-  .factory('Persons', function() {
-    var persons = [];
-    var maxNameLength = 10;
+  .factory('Options', function() {
+    var _task = null;
+    var _options = [];
+    var _chosenOptions = [];
+    var _isMulti = null;
+    var _maxOptionsLength = 10;
+
+    function spliceRandom() {
+
+    }
 
     return {
-      add: function(name) {
-        for (var i = 0; i < persons.length; i++) {
-          var person = persons[i];
-          if (name === person) {
-            console.debug("Name already exists in list, not adding to list");
-            // Person already exists in list
-            // TODO: Display error
-            return;
+      add: function(newOption) {
+        if (_options.length >= 1) {
+          // Check for duplicate
+          for (var i = 0; i < _options.length; i++) {
+            var option = _options[i];
+            if (newOption === option) {
+              console.debug("[" + option + "] already exists in list, not adding to list");
+              // TODO: Display error
+              return;
+            }
           }
         }
 
-        console.debug("Unique name, adding to list");
-        // Name is unique, add to list
-        persons.push(name);
+        // Option is unique, add to list
+        console.debug("Adding [" + newOption + "] to list");
+        _options.push(newOption);
       },
       get: function() {
-        return persons;
+        return _options;
       },
-      getAtIndex: function(index) {
-        return persons.splice(parseInt(index), 1)[0];
+      set: function(newOptions) {
+        if (newOptions instanceof Array) {
+          _options = newOptions;
+        } else {
+          _options = [];
+          _options.push(newOptions);
+        }
       },
-      set: function(newPersons) {
-        persons = newPersons;
+      removeAtIndex: function(index) {
+        return _options.splice(parseInt(index), 1)[0];
       },
       clear: function() {
-        persons = [];
-      }
-    }
-  })
-
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+        _options = [];
+      },
+      setTask: function(newTask) {
+        _task = newTask;
+      },
+      getTask: function() {
+        return _task;
+      },
+      getLength: function() {
+        return _options.length;
+      },
+      spliceRandom: function() {
+        var index = Math.floor(Math.random() * (_options.length + 1 - 1));
+        var option = _options.splice(index, 1);
+        return option;
+      },
+      spliceRandoms: function(numOptions) {
+        if (numOptions > this.getLength()) {
+          console.log("Trying to get more options than available");
+          return;
         }
+
+        var index, option, options = [];
+        for (var i = 0; i < numOptions; ++i) {
+          index = Math.floor(Math.random() * (_options.length + 1 - 1));
+          option = _options.splice(index, 1);
+          options.push(option);
+        }
+        return options;
+      },
+      getChosenOptions: function() {
+        return _chosenOptions;
+      },
+      setChosenOptions: function(options) {
+        _chosenOptions = options;
       }
-      return null;
     }
-  };
-});
+  });

@@ -12,18 +12,9 @@
   display: none;
 }
 
-#loading-screen > div {
-  /*background: #EEE;*/
-}
-
 /* Person template */
 #person-button-add {
   margin-right: 5px;
   width: 50px;
 }
 
-#apa {
-  height: 100px;
-  width: 100px;
-  background-color: #009689;
-}

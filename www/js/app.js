@@ -68,7 +68,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       })
       .state('tab.result', {
-        url: '/result/:winner/:task',
+        url: '/result',
         views: {
           'tab-result': {
             templateUrl: 'templates/tab-result.html',

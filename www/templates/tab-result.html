@@ -1,8 +1,9 @@
 <ion-view view-title="Result" id="view-result">
   <ion-content>
-    <ion-list>
-      <h1>{{task}}</h1>
-      <h1>{{winner}}</h1>
-    </ion-list>
+    <h1>Task: {{task}}</h1>
+    <h1>Winner(s): {{winner}}</h1>
+    <ul ng-repeat="winner in winners">
+      <li>{{winner}}</li>
+    </ul>
   </ion-content>
 </ion-view>
