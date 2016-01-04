@@ -76,6 +76,11 @@ angular.module('starter.directives', [])
           getNameList();
         };
 
+        scope.removeName = function(name) {
+          Options.remove(name);
+          getNameList();
+        };
+
         scope.getRandomName = function() {
           var task = scope.settings.task;
           var nrOfPeople = scope.settings.nrOfPeople;

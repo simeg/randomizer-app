@@ -17,11 +17,15 @@
 </div>
 
 <!-- Person list -->
-<div class="list" id="person-name-list-container" ng-if="nameList.length">
+<div class="list list-inset" id="person-name-list-container" ng-if="nameList.length">
   <h4>Persons</h4>
-  <ul ng-if="nameList.length > 0" ng-repeat="name in nameList">
-    <li>{{name}}</li>
-  </ul>
+  <div ng-if="nameList.length > 0" ng-repeat="name in nameList">
+    <div class="item randomize-list-item">
+      {{name}}
+      <img class="randomize-list-item-delete" src="img/icon_delete.png"
+           ng-click="removeName(name)"/>
+    </div>
+  </div>
 </div>
 
 <br ng-if="nameList.length === 0" />
@@ -30,7 +34,7 @@
 <div class="list">
   <ul>
     <li class="item item-toggle">
-      Multiple people to do task
+      Multiple people
       <label class="toggle toggle-balanced">
         <input type="checkbox" ng-model="settings.isMulti">
         <div class="track">
@@ -41,16 +45,15 @@
   </ul>
 </div>
 
-<h1>{{settings.task}}</h1>
-
 <!-- Number of people -->
 <div class="list" ng-if="settings.isMulti && nameList.length > 2">
-  <h4>How many should do the task?</h4>
+  <h4>How many?</h4>
   <label class="item item-input">
     <input type="number" placeholder="Max {{nameList.length - 1}} can be chosen"
            ng-model="settings.nrOfPeople">
   </label>
 </div>
-<button id="person-randomize-button" ng-click="getRandomName()">
+<button class="button button-full button-positive"
+        id="person-randomize-button" ng-click="getRandomName()">
   Randomize
 </button>

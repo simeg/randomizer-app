@@ -1,9 +1,19 @@
 <ion-view view-title="Result" id="view-result">
   <ion-content>
-    <h1>Task: {{task}}</h1>
-    <h1>Winner(s): {{winner}}</h1>
-    <ul ng-repeat="winner in winners">
-      <li>{{winner}}</li>
-    </ul>
+
+    <div class="list card">
+
+      <div class="item" id="result-task-container">
+        <h2><strong>Your chosen task was to:</strong><br/> {{task}}</h2>
+      </div>
+
+      <div class="item item-body" id="result-winners-container">
+        <h2 id="result-winners-title"><strong>{{chosenNames.length > 1 ? 'Winners:' : 'Winner:'}}</strong></h2>
+        <ul ng-repeat="name in chosenNames">
+          <li>{{name}}</li>
+        </ul>
+      </div>
+    </div>
+
   </ion-content>
 </ion-view>

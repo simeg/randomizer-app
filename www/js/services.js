@@ -5,11 +5,7 @@ angular.module('starter.services', [])
     var _options = [];
     var _chosenOptions = [];
     var _isMulti = null;
-    var _maxOptionsLength = 10;
-
-    function spliceRandom() {
-
-    }
+    const MAX_OPTIONS = 10;
 
     return {
       add: function(newOption) {
@@ -40,8 +36,16 @@ angular.module('starter.services', [])
           _options.push(newOptions);
         }
       },
-      removeAtIndex: function(index) {
-        return _options.splice(parseInt(index), 1)[0];
+      remove: function(optionToRemove) {
+        for (var i = 0; i < _options.length; ++i) {
+          var option = _options[i];
+          if (optionToRemove === option) {
+            var index = _options.indexOf(option);
+            _options.splice(index, 1);
+            console.debug("Removing [" + optionToRemove + "] from list");
+            break;
+          }
+        }
       },
       clear: function() {
         _options = [];
@@ -70,6 +74,7 @@ angular.module('starter.services', [])
         for (var i = 0; i < numOptions; ++i) {
           index = Math.floor(Math.random() * (_options.length + 1 - 1));
           option = _options.splice(index, 1);
+          option = option.toString();
           options.push(option);
         }
         return options;

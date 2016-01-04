@@ -18,3 +18,24 @@
   width: 50px;
 }
 
+/* Result */
+#result-task-container {
+  text-align: center;
+}
+
+#result-winners-container {
+  text-align: center;
+}
+
+#result-winners-title {
+  margin-bottom: 0;
+}
+
+/* Randomize directive */
+.randomize-list-item {
+  padding: 10px;
+}
+
+.randomize-list-item-delete {
+  float: right;
+}
