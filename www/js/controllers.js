@@ -1,6 +1,10 @@
 angular.module('starter.controllers', [])
 
   .controller('PersonCtrl', function($scope, Options, $state) {
+
+    $scope.onSwipeLeft = function() {
+      $state.go("tab.movie");
+    }
   })
 
   .controller('MovieCtrl', function($scope) {
