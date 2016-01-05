@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.directives'])
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -21,6 +21,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         StatusBar.styleLightContent();
       }
     });
+
+    $rootScope.$on('$stateChangeSuccess',
+      function(event, toState, toParams, fromState, fromParams){
+        console.log("State changed from [" + fromState.name + "] to [" + toState.name + "]");
+        $rootScope.stateFrom = fromState.name;
+      });
   })
 
   .config(function($stateProvider, $urlRouterProvider) {

@@ -1,7 +1,7 @@
 <ion-view view-title="Result" id="view-result">
   <ion-content class="padding">
 
-    <div class="list card" ng-if="!isMissingInfo">
+    <div class="list card" ng-if="!isMovie && !isMissingInfo">
 
       <div class="item" id="result-task-container">
         <i class="result-icon ion-information-circled"></i>
@@ -18,6 +18,18 @@
         </ul>
       </div>
     </div>
+
+    <div ng-if="isMovie">
+      Title: {{movie.title}}
+      <br/>
+      Description: {{movie.synopsis}}
+      <br/>
+      Rating: {{movie.rating}}
+      <br/>
+      <img ng-src="{{movie.posterUrl}}"/>
+    </div>
+
+    <h1>{{movie.title ? movie.title : 'No title'}}</h1>
 
     <div id="result-missing-info" ng-if="isMissingInfo">
       <i class="icon ion-alert-circled"></i>

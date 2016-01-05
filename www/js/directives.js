@@ -92,6 +92,96 @@ angular.module('starter.directives', [])
       },
       templateUrl: "templates/directives/randomize-task.html"
     }
+  }])
+
+  .directive('randomizeMovie', ['Options', 'OMDb', '$state', function(Options, OMDb, $state) {
+    return {
+      restrict: "E",
+      scope: { },
+      link: function(scope, element, attrs) {
+
+        const PLACEHOLDER_POSTER = "placeholder_poster_url"; // TODO
+        const IMAGE_SIZE = "w185";
+
+        function initScope() {
+          scope.movieList = [];
+          scope.settings = {};
+        }
+
+        function tempInit() {
+          scope.addMovie("Titanic");
+          scope.addMovie("Rambo");
+        }
+
+        function goWithLoading(state) {
+          showLoadingScreen();
+          setTimeout(function() {
+            $state.go(state);
+            hideLoadingScreen();
+            initScope();
+          }, 1000);
+        }
+
+        function getMovieList() {
+          var movieList = Options.get();
+          scope.movieList = angular.copy(movieList);
+        }
+
+        scope.addMovie = function(title) {
+          if (title && title.length > 1) {
+            Options.add(title);
+            getMovieList();
+            scope.settings.newMovie = "";
+          } else {
+            console.debug("Movie title input cannot be empty");
+          }
+        };
+
+        scope.removeName = function(name) {
+          Options.remove(name);
+          getNameList();
+        };
+
+        scope.getRandomMovie = function() {
+          if (scope.movieList && scope.movieList.length >= 2) {
+            var randomMovieTitle = Options.spliceRandom();
+
+            var moviePromise = OMDb.searchMovie(randomMovieTitle);
+            moviePromise.then(function(response) {
+              Options.reset();
+              var movie = response.data;
+
+              OMDb.getImgBaseUrl().then(function(response) {
+                var posterBaseUrl = response["data"]["images"]["base_url"] + IMAGE_SIZE;
+                movie.posterUrl = posterBaseUrl + movie["poster_path"];
+                Options.setMovie(movie);
+                goWithLoading("tab.result");
+              });
+
+            });
+
+          } else {
+            // TODO: Display error
+          }
+        };
+
+        function showLoadingScreen() {
+          $("#loading-screen").fadeIn();
+          $("#view-person").fadeOut();
+        }
+
+        function hideLoadingScreen() {
+          $("#loading-screen").fadeOut();
+          $("#view-result").fadeIn();
+          // Person view needs to be made visible again
+          $("#view-person").fadeIn();
+        }
+
+        initScope();
+        tempInit();
+      },
+      templateUrl: "templates/directives/randomize-movie.html"
+    }
   }]);
 
 /*
