@@ -47,7 +47,7 @@ angular.module('starter.services', [])
           }
         }
       },
-      clear: function() {
+      clearOptions: function() {
         _options = [];
       },
       setTask: function(newTask) {
@@ -84,6 +84,11 @@ angular.module('starter.services', [])
       },
       setChosenOptions: function(options) {
         _chosenOptions = options;
+      },
+      reset: function() {
+        _options = [];
+        _task = null;
+        _chosenOptions = null;
       }
     }
   });

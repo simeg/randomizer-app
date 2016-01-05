@@ -7,10 +7,6 @@ angular.module('starter.directives', [])
       link: function(scope, element, attrs) {
         const LOADING_TIME = 1000;
 
-        scope.settings = {};
-        scope.settings.isMulti = false;
-        scope.settings.nrOfPeople = 1;
-
         function tempInit() {
           scope.settings.task = "Köpa chips";
           scope.addName("Simon");
@@ -27,10 +23,10 @@ angular.module('starter.directives', [])
 
         function goWithLoading(state) {
           showLoadingScreen();
-          showSpinner();
           setTimeout(function() {
             $state.go(state);
             hideLoadingScreen();
+            initScope();
           }, LOADING_TIME);
         }
 
@@ -42,38 +38,25 @@ angular.module('starter.directives', [])
         function hideLoadingScreen() {
           $("#loading-screen").fadeOut();
           $("#view-result").fadeIn();
+          // Person view needs to be made visible again
+          $("#view-person").fadeIn();
         }
 
-        function showSpinner() {
-          var opts = {
-            lines: 11 // The number of lines to draw
-            , length: 27 // The length of each line
-            , width: 20 // The line thickness
-            , radius: 70 // The radius of the inner circle
-            , scale: 0.5 // Scales overall size of the spinner
-            , corners: 1 // Corner roundness (0..1)
-            , color: '#000' // #rgb or #rrggbb or array of colors
-            , opacity: 0.25 // Opacity of the lines
-            , rotate: 0 // The rotation offset
-            , direction: 1 // 1: clockwise, -1: counterclockwise
-            , speed: 1 // Rounds per second
-            , trail: 60 // Afterglow percentage
-            , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-            , zIndex: 2e9 // The z-index (defaults to 2000000000)
-            , className: 'spinner' // The CSS class to assign to the spinner
-            , top: '50%' // Top position relative to parent
-            , left: '50%' // Left position relative to parent
-            , shadow: false  // Whether to render a shadow
-            , hwaccel: true // Whether to use hardware acceleration
-            , position: 'absolute' // Element positioning
-          };
-          var target = document.getElementById('loading-screen');
-          var spinner = new Spinner(opts).spin(target);
+        function initScope() {
+          scope.nameList = [];
+          scope.settings = {};
+          scope.settings.isMulti = false;
+          scope.settings.nrOfPeople = 1;
         }
 
         scope.addName = function(name) {
-          Options.add(name);
-          getNameList();
+          if (name && name.length >= 1) {
+            Options.add(name);
+            getNameList();
+            scope.settings.newName = "";
+          } else {
+            console.debug("Name cannot be empty");
+          }
         };
 
         scope.removeName = function(name) {
@@ -97,14 +80,15 @@ angular.module('starter.directives', [])
               Options.setChosenOptions(randomName);
             }
 
-            goWithLoading("tab.result")
+            goWithLoading("tab.result");
 
           } else {
             // TODO: Display error
           }
         };
 
-        tempInit();
+        initScope();
+        //tempInit();
       },
       templateUrl: "templates/directives/randomize-task.html"
     }

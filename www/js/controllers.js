@@ -1,25 +1,31 @@
 angular.module('starter.controllers', [])
 
   .controller('PersonCtrl', function($scope, Options, $state) {
-
-
   })
 
   .controller('MovieCtrl', function($scope) {
   })
-  .controller('ResultCtrl', function($scope, Options, $state) {
-    var task = Options.getTask();
+  .controller('ResultCtrl', function($scope, Options) {
 
-    /*
-    if (!task) {
-      console.log("No task set, re-directing to random task-view");
-      $state.go("tab.person");
+    function initScope() {
+      $scope.task = Options.getTask();
+      $scope.isMissingInfo = false;
+
+      if (!$scope.task) {
+        $scope.isMissingInfo = true;
+      } else {
+        $scope.chosenNames = Options.getChosenOptions();
+        $scope.isMulti = ($scope.chosenNames.length > 1);
+
+        // Reset service information
+        setTimeout(function() {
+          Options.reset();
+        }, 100);
+      }
     }
-    */
-    $scope.chosenNames = Options.getChosenOptions();
-    //$scope.chosenNames = ["Simon", "Bea"];
-    //$scope.task = task || "No task set";
-    $scope.task = "Buy chips";
+
+    initScope();
+
   })
   .controller('CustomCtrl', function($scope) {
   });

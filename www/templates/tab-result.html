@@ -1,18 +1,27 @@
 <ion-view view-title="Result" id="view-result">
-  <ion-content>
+  <ion-content class="padding">
 
-    <div class="list card">
+    <div class="list card" ng-if="!isMissingInfo">
 
       <div class="item" id="result-task-container">
-        <h2><strong>Your chosen task was to:</strong><br/> {{task}}</h2>
+        <i class="result-icon ion-information-circled"></i>
+        <h2><strong>Your task was:</strong></h2>
+        {{task}}
       </div>
 
       <div class="item item-body" id="result-winners-container">
-        <h2 id="result-winners-title"><strong>{{chosenNames.length > 1 ? 'Winners:' : 'Winner:'}}</strong></h2>
+        <i ng-if="isMulti" class="result-icon ion-person-stalker"></i>
+        <i ng-if="!isMulti" class="result-icon ion-person"></i>
+        <h2 id="result-winners-title"><strong>{{isMulti ? 'Selected persons:' : 'Selected person:'}}</strong></h2>
         <ul ng-repeat="name in chosenNames">
           <li>{{name}}</li>
         </ul>
       </div>
+    </div>
+
+    <div id="result-missing-info" ng-if="isMissingInfo">
+      <i class="icon ion-alert-circled"></i>
+      <h3>There is no result to display</h3>
     </div>
 
   </ion-content>

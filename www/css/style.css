@@ -12,10 +12,22 @@
   display: none;
 }
 
+#loading-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+#loading-spinner svg {
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+}
+
 /* Person template */
 #person-button-add {
   margin-right: 5px;
-  width: 50px;
+  width: 40px;
 }
 
 /* Result */
@@ -31,11 +43,45 @@
   margin-bottom: 0;
 }
 
+.result-icon {
+  font-size: 30px;
+}
+
+#result-missing-info {
+  text-align: center;
+  margin-top: 50%;
+}
+
+#result-missing-info i {
+  font-size: 60px;
+}
+
+#result-missing-info h3 {
+  margin-top: 8px;
+}
+
+.item h2 {
+  margin-top: 5px;
+}
+
 /* Randomize directive */
+#person-name-list-container {
+  margin-top: 0;
+}
+
 .randomize-list-item {
   padding: 10px;
 }
 
 .randomize-list-item-delete {
   float: right;
+  font-size: 20px;
+}
+
+#person-randomize-nr-of-persons {
+  text-align: center;
+}
+
+#icon-add::before {
+  font-size: 18px;
 }

@@ -1,5 +1,5 @@
 <!-- Task -->
-<h4>Task</h4>
+<h5>Task</h5>
 <div id="person-task-container">
   <label class="item item-input">
     <input type="text" placeholder="What is the task? (E.g. go buy snacks)" ng-model="settings.task">
@@ -7,23 +7,22 @@
 </div>
 
 <!-- Add new person -->
-<h4>Add a new person</h4>
+<h5>Add a new person</h5>
 <div class="item item-input">
   <input class="item-input-wrapper" type="text" placeholder="Name" ng-model="settings.newName">
   <button class="button button-positive button-small" id="person-button-add"
           ng-click="addName(settings.newName)">
-    Add
+    <i class="icon ion-plus-round" id="icon-add"></i>
   </button>
 </div>
 
 <!-- Person list -->
 <div class="list list-inset" id="person-name-list-container" ng-if="nameList.length">
-  <h4>Persons</h4>
   <div ng-if="nameList.length > 0" ng-repeat="name in nameList">
     <div class="item randomize-list-item">
       {{name}}
-      <img class="randomize-list-item-delete" src="img/icon_delete.png"
-           ng-click="removeName(name)"/>
+      <i class="ion-ios-close-outline randomize-list-item-delete"
+         ng-click="removeName(name)"></i>
     </div>
   </div>
 </div>
@@ -35,7 +34,7 @@
   <ul>
     <li class="item item-toggle">
       Multiple people
-      <label class="toggle toggle-balanced">
+      <label class="toggle toggle-positive">
         <input type="checkbox" ng-model="settings.isMulti">
         <div class="track">
           <div class="handle"></div>
@@ -45,14 +44,19 @@
   </ul>
 </div>
 
-<!-- Number of people -->
 <div class="list" ng-if="settings.isMulti && nameList.length > 2">
-  <h4>How many?</h4>
-  <label class="item item-input">
-    <input type="number" placeholder="Max {{nameList.length - 1}} can be chosen"
+  <div class="item range range-positive">
+    1
+    <input type="range" name="NrOfPeopleRange"
+           min="1"
+           max="{{nameList.length - 1}}"
+           value="{{settings.nrOfPeople}}"
            ng-model="settings.nrOfPeople">
-  </label>
+    {{nameList.length - 1}}
+  </div>
+  <h5 id="person-randomize-nr-of-persons">{{settings.nrOfPeople}} {{settings.nrOfPeople === 1 ? 'person' : 'persons'}} will do the task</h5>
 </div>
+
 <button class="button button-full button-positive"
         id="person-randomize-button" ng-click="getRandomName()">
   Randomize
