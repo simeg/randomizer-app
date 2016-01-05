@@ -1,0 +1,16 @@
+<div class="list card">
+  <div class="item" id="result-task-container">
+    <i class="result-icon ion-information-circled"></i>
+    <h2><strong>Your task was:</strong></h2>
+    {{task}}
+  </div>
+
+  <div class="item item-body" id="result-winners-container">
+    <i ng-if="isMulti" class="result-icon ion-person-stalker"></i>
+    <i ng-if="!isMulti" class="result-icon ion-person"></i>
+    <h2 id="result-winners-title"><strong>{{isMulti ? 'Selected persons:' : 'Selected person:'}}</strong></h2>
+    <ul ng-repeat="name in chosenNames">
+      <li>{{name}}</li>
+    </ul>
+  </div>
+</div>

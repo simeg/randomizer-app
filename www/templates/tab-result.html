@@ -1,35 +1,23 @@
 <ion-view view-title="Result" id="view-result">
-  <ion-content class="padding">
+  <ion-content class="padding"
+               on-swipe-right="onSwipeRight()">
 
-    <div class="list card" ng-if="!isMovie && !isMissingInfo">
-
-      <div class="item" id="result-task-container">
-        <i class="result-icon ion-information-circled"></i>
-        <h2><strong>Your task was:</strong></h2>
-        {{task}}
-      </div>
-
-      <div class="item item-body" id="result-winners-container">
-        <i ng-if="isMulti" class="result-icon ion-person-stalker"></i>
-        <i ng-if="!isMulti" class="result-icon ion-person"></i>
-        <h2 id="result-winners-title"><strong>{{isMulti ? 'Selected persons:' : 'Selected person:'}}</strong></h2>
-        <ul ng-repeat="name in chosenNames">
-          <li>{{name}}</li>
-        </ul>
-      </div>
+    <div ng-if="!isMovie && !isMissingInfo">
+      <result-person
+        task="settings.task"
+        is-multi="settings.isMulti"
+        names="settings.chosenNames">
+      </result-person>
     </div>
 
-    <div ng-if="isMovie">
-      Title: {{movie.title}}
-      <br/>
-      Description: {{movie.synopsis}}
-      <br/>
-      Rating: {{movie.rating}}
-      <br/>
-      <img ng-src="{{movie.posterUrl}}"/>
+    <div ng-if="isMovie && !isMissingInfo">
+      <result-movie
+        title="movie.title"
+        synopsis="movie.synopsis"
+        rating="movie.rating"
+        poster-url="movie.posterUrl">
+      </result-movie>
     </div>
-
-    <h1>{{movie.title ? movie.title : 'No title'}}</h1>
 
     <div id="result-missing-info" ng-if="isMissingInfo">
       <i class="icon ion-alert-circled"></i>

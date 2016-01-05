@@ -4,15 +4,15 @@ angular.module("starter.services", [])
     var _task = null;
     var _options = [];
     var _chosenOptions = [];
-    var _isMulti = null;
     var _movieObj = {};
+
     const MAX_OPTIONS = 10;
 
     return {
       add: function(newOption) {
         if (_options && _options.length >= 1) {
           // Check for duplicate
-          for (var i = 0; i < _options.length; i++) {
+          for (var i = 0; i < _options.length; ++i) {
             var option = _options[i];
             if (newOption === option) {
               console.debug("[" + option + "] already exists in list, not adding to list");
@@ -30,15 +30,13 @@ angular.module("starter.services", [])
         return _options;
       },
       remove: function(optionToRemove) {
-        if (_options && _options.length > 1) {
-          for (var i = 0; i < _options.length; ++i) {
-            var option = _options[i];
-            if (optionToRemove === option) {
-              var index = _options.indexOf(option);
-              _options.splice(index, 1);
-              console.debug("Removing [" + optionToRemove + "] from list");
-              break;
-            }
+        for (var i = 0; i < _options.length; ++i) {
+          var option = _options[i];
+          if (optionToRemove === option) {
+            var index = _options.indexOf(option);
+            _options.splice(index, 1);
+            console.debug("Removing [" + optionToRemove + "] from list");
+            break;
           }
         }
       },
@@ -86,59 +84,22 @@ angular.module("starter.services", [])
       reset: function() {
         _options = [];
         _task = null;
-        _chosenOptions = null;
         _movieObj = {};
       }
     }
   })
 
-  .factory("OMDb", function($http) {
+  .factory("OMDbService", function($http) {
 
-    const NO_MOVIE_FOUND = false;
-
-    var _apiKey = "48184b8fda5a8308b6574030aa583e51";
-    var _base = "http://api.themoviedb.org/3";
-    var _configService = "/configuration";
-    var _callback = "JSON_CALLBACK";
-    var _url = _base + "/search/movie?api_key=" +
-      _apiKey + "&callback=" + _callback + "&page=1";
-
-    function getImgBaseUrl(){
-      return $http.jsonp(_base + _configService + "?api_key=" +
-        _apiKey + "&callback=" + _callback);
-    }
-
-    function getMovieId(movieTitle) {
-      return $http.jsonp(_url + "&query=" + encodeURI(movieTitle));
-    }
-
-    function getMovieDetails(movieId) {
-      return $http.jsonp(_base + "/movie/" + movieId +
-        "?api_key=" + _apiKey + "&callback=" + _callback);
-    }
+    const BASE_URL = "http://www.omdbapi.com/?t=";
 
     function getMovie(movieTitle) {
-      return getMovieId(movieTitle)
-        .then(function(response) {
-          var movie = response.data.results[0];
-          var movieId = movie.id;
-          return getMovieDetails(movieId)
-            .catch(function(error) {
-              console.error("Error getting movie information for " +
-                "movie with title [" + movieTitle + "] => " + error);
-            });
-        }).catch(function(error) {
-          console.error("Error querying movie with title [" + movieTitle + "] => " + error);
-          return NO_MOVIE_FOUND;
-        });
+      return $http.get(BASE_URL + movieTitle);
     }
 
     return {
       searchMovie: function(movieTitle) {
         return getMovie(movieTitle);
-      },
-      getImgBaseUrl: function() {
-        return getImgBaseUrl();
       }
     }
   });

@@ -1,9 +1,9 @@
 <!-- Add new movie -->
 <h5>Add a movie</h5>
 <div class="item item-input">
-  <input class="item-input-wrapper" type="text" placeholder="Movie title" ng-model="settings.newMovie">
+  <input class="item-input-wrapper" type="text" placeholder="Movie title" ng-model="settings.movieLabel">
   <button class="button button-positive button-small button-add"
-          ng-click="addMovie(settings.newMovie)">
+          ng-click="addMovie(settings.movieLabel)">
     <i class="icon ion-plus-round" id="icon-add"></i>
   </button>
 </div>
@@ -14,7 +14,7 @@
     <div class="item randomize-list-item">
       {{movie}}
       <i class="ion-ios-close-outline randomize-list-item-delete"
-         ng-click="removeMovie(name)"></i>
+         ng-click="removeMovie(movie)"></i>
     </div>
   </div>
 </div>

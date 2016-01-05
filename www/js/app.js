@@ -25,7 +25,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         console.log("State changed from [" + fromState.name + "] to [" + toState.name + "]");
-        $rootScope.stateFrom = fromState.name;
       });
   })
 
@@ -74,7 +73,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       })
       .state('tab.result', {
-        url: '/result',
+        url: '/result/:prevState',
         views: {
           'tab-result': {
             templateUrl: 'templates/tab-result.html',

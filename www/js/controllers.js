@@ -7,16 +7,24 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('MovieCtrl', function($scope) {
+  .controller('MovieCtrl', function($scope, $state) {
+
+    $scope.onSwipeLeft = function() {
+      $state.go("tab.result");
+    };
+
+    $scope.onSwipeRight = function() {
+      $state.go("tab.person");
+    };
+
   })
-  .controller('ResultCtrl', function($scope, Options, $state, $rootScope) {
+  .controller('ResultCtrl', function($scope, Options, $state, $stateParams) {
 
     const INVALID_STATE = false;
 
-    $scope.isMovie = false;
-
     function init() {
-      var prevState = $rootScope.stateFrom || INVALID_STATE;
+      $scope.isMovie = null;
+      var prevState = $stateParams.prevState || INVALID_STATE;
       if (prevState === "tab.person") {
         initTaskScope();
       } else if (prevState === "tab.movie") {
@@ -27,8 +35,9 @@ angular.module('starter.controllers', [])
     }
 
     function initTaskScope() {
-      $scope.task = Options.getTask();
       $scope.isMissingInfo = false;
+      $scope.isMovie = false;
+      $scope.task = Options.getTask();
 
       if (!$scope.task) {
         $scope.isMissingInfo = true;
@@ -36,23 +45,28 @@ angular.module('starter.controllers', [])
       } else {
         $scope.chosenNames = Options.getChosenOptions();
         $scope.isMulti = ($scope.chosenNames.length > 1);
-
-        // Reset service information
-        setTimeout(function() {
-          Options.reset();
-        }, 100);
       }
     }
 
     function initMovieScope() {
+      $scope.isMissingInfo = false;
       $scope.isMovie = true;
       var movie = Options.getMovie();
+
       $scope.movie = {};
-      $scope.movie.title = movie["title"] || "Missing title";
-      $scope.movie.synopsis = movie["overview"] || "Missing synopsis";
-      $scope.movie.rating = movie["popularity"] || "Missing rating";
-      $scope.movie.posterUrl = movie["posterUrl"];
+      $scope.movie.title = movie["Title"];
+      $scope.movie.synopsis = movie["Plot"];
+      $scope.movie.rating = movie["imdbRating"];
+      $scope.movie.posterUrl = movie["Poster"];
     }
+
+    $scope.onSwipeRight = function() {
+      $state.go("tab.movie");
+    };
+
+    $scope.$on('$stateChangeSuccess', function() {
+      init();
+    });
 
     init();
 

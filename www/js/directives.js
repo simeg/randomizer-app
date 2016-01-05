@@ -5,16 +5,8 @@ angular.module('starter.directives', [])
       restrict: "E",
       scope: { },
       link: function(scope, element, attrs) {
-        const LOADING_TIME = 1000;
 
-        function tempInit() {
-          scope.settings.task = "Köpa chips";
-          scope.addName("Simon");
-          scope.addName("Bea");
-          scope.addName("Jonte");
-          scope.addName("Gurt");
-          getNameList();
-        }
+        const LOADING_TIME = 1000;
 
         function getNameList() {
           var nameList = Options.get();
@@ -24,7 +16,7 @@ angular.module('starter.directives', [])
         function goWithLoading(state) {
           showLoadingScreen();
           setTimeout(function() {
-            $state.go(state);
+            $state.go(state, { prevState: "tab.person" });
             hideLoadingScreen();
             initScope();
           }, LOADING_TIME);
@@ -88,38 +80,33 @@ angular.module('starter.directives', [])
         };
 
         initScope();
-        //tempInit();
+
       },
       templateUrl: "templates/directives/randomize-task.html"
     }
   }])
 
-  .directive('randomizeMovie', ['Options', 'OMDb', '$state', function(Options, OMDb, $state) {
+  .directive('randomizeMovie', ['Options', 'OMDbService', '$state', function(Options, OMDb, $state) {
     return {
       restrict: "E",
       scope: { },
       link: function(scope, element, attrs) {
 
+        const LOADING_TIME = 1000;
         const PLACEHOLDER_POSTER = "placeholder_poster_url"; // TODO
-        const IMAGE_SIZE = "w185";
 
         function initScope() {
           scope.movieList = [];
           scope.settings = {};
         }
 
-        function tempInit() {
-          scope.addMovie("Titanic");
-          scope.addMovie("Rambo");
-        }
-
         function goWithLoading(state) {
           showLoadingScreen();
           setTimeout(function() {
-            $state.go(state);
+            $state.go(state, { prevState: "tab.movie" });
             hideLoadingScreen();
             initScope();
-          }, 1000);
+          }, LOADING_TIME);
         }
 
         function getMovieList() {
@@ -128,18 +115,21 @@ angular.module('starter.directives', [])
         }
 
         scope.addMovie = function(title) {
+          if (scope.movieList.length === 0) {
+            Options.reset();
+          }
           if (title && title.length > 1) {
             Options.add(title);
             getMovieList();
-            scope.settings.newMovie = "";
+            scope.settings.movieLabel = "";
           } else {
             console.debug("Movie title input cannot be empty");
           }
         };
 
-        scope.removeName = function(name) {
-          Options.remove(name);
-          getNameList();
+        scope.removeMovie = function(title) {
+          Options.remove(title);
+          getMovieList();
         };
 
         scope.getRandomMovie = function() {
@@ -148,16 +138,19 @@ angular.module('starter.directives', [])
 
             var moviePromise = OMDb.searchMovie(randomMovieTitle);
             moviePromise.then(function(response) {
+              var movie = {};
+              var isMovieFound = (response["data"]["Response"] === "True");
+              if (isMovieFound) {
+                movie = response.data;
+              } else {
+                movie["Title"] = randomMovieTitle.toString();
+              }
+
               Options.reset();
-              var movie = response.data;
-
-              OMDb.getImgBaseUrl().then(function(response) {
-                var posterBaseUrl = response["data"]["images"]["base_url"] + IMAGE_SIZE;
-                movie.posterUrl = posterBaseUrl + movie["poster_path"];
-                Options.setMovie(movie);
-                goWithLoading("tab.result");
-              });
-
+              Options.setMovie(movie);
+              goWithLoading("tab.result");
+            }).catch(function(error) {
+              console.error("Error getting movie [" + randomMovieTitle + "] => " + error);
             });
 
           } else {
@@ -178,11 +171,39 @@ angular.module('starter.directives', [])
         }
 
         initScope();
-        tempInit();
       },
       templateUrl: "templates/directives/randomize-movie.html"
     }
-  }]);
+  }])
+
+  .directive('resultMovie', function() {
+    return {
+      restrict: "E",
+      scope: {
+        title: "=",
+        synopsis: "=",
+        rating: "=",
+        posterUrl: "="
+      },
+      link: function (scope, element, attrs) { },
+      templateUrl: "templates/directives/result-movie.html"
+    }
+  })
+
+  .directive('resultPerson', function() {
+    return {
+      restrict: "E",
+      scope: {
+        title: "=",
+        synopsis: "=",
+        rating: "=",
+        posterUrl: "="
+      },
+      link: function (scope, element, attrs) { },
+      templateUrl: "templates/directives/result-movie.html"
+    }
+
+  });
 
 /*
  scope.randomizePerson = function() {
