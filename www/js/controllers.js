@@ -6,7 +6,6 @@ angular.module('starter.controllers', [])
       $state.go("tab.movie");
     }
   })
-
   .controller('MovieCtrl', function($scope, $state) {
 
     $scope.onSwipeLeft = function() {
@@ -25,6 +24,7 @@ angular.module('starter.controllers', [])
     function init() {
       $scope.isMovie = null;
       var prevState = $stateParams.prevState || INVALID_STATE;
+      console.log("Prev state: " + prevState);
       if (prevState === "tab.person") {
         initTaskScope();
       } else if (prevState === "tab.movie") {
@@ -37,14 +37,16 @@ angular.module('starter.controllers', [])
     function initTaskScope() {
       $scope.isMissingInfo = false;
       $scope.isMovie = false;
-      $scope.task = Options.getTask();
 
-      if (!$scope.task) {
+      $scope.settings = {};
+      $scope.settings.task = Options.getTask();
+
+      if (!$scope.settings.task) {
         $scope.isMissingInfo = true;
         console.debug("No task set")
       } else {
-        $scope.chosenNames = Options.getChosenOptions();
-        $scope.isMulti = ($scope.chosenNames.length > 1);
+        $scope.settings.chosenNames = Options.getChosenOptions();
+        $scope.settings.isMulti = angular.isArray($scope.settings.chosenNames);
       }
     }
 

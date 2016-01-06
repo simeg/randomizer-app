@@ -9,8 +9,11 @@
     <i ng-if="isMulti" class="result-icon ion-person-stalker"></i>
     <i ng-if="!isMulti" class="result-icon ion-person"></i>
     <h2 id="result-winners-title"><strong>{{isMulti ? 'Selected persons:' : 'Selected person:'}}</strong></h2>
-    <ul ng-repeat="name in chosenNames">
+    <ul ng-if="isMulti" ng-repeat="name in names track by $index">
       <li>{{name}}</li>
     </ul>
+    <div ng-if="!isMulti">
+      {{names}}
+    </div>
   </div>
 </div>

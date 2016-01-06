@@ -8,6 +8,15 @@ angular.module('starter.directives', [])
 
         const LOADING_TIME = 1000;
 
+        function initTempData() {
+          Options.add("Simon");
+          Options.add("Bea");
+          Options.add("Jonk");
+          Options.setTask("Buy chips");
+          scope.settings.task = "Buy Chips";
+          getNameList();
+        }
+
         function getNameList() {
           var nameList = Options.get();
           scope.nameList = angular.copy(nameList);
@@ -72,6 +81,7 @@ angular.module('starter.directives', [])
               Options.setChosenOptions(randomName);
             }
 
+            Options.clearOptions();
             goWithLoading("tab.result");
 
           } else {
@@ -80,6 +90,7 @@ angular.module('starter.directives', [])
         };
 
         initScope();
+        initTempData();
 
       },
       templateUrl: "templates/directives/randomize-task.html"
@@ -194,13 +205,12 @@ angular.module('starter.directives', [])
     return {
       restrict: "E",
       scope: {
-        title: "=",
-        synopsis: "=",
-        rating: "=",
-        posterUrl: "="
+        task: "=",
+        isMulti: "=",
+        names: "="
       },
       link: function (scope, element, attrs) { },
-      templateUrl: "templates/directives/result-movie.html"
+      templateUrl: "templates/directives/result-person.html"
     }
 
   });

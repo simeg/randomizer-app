@@ -10,7 +10,7 @@ angular.module("starter.services", [])
 
     return {
       add: function(newOption) {
-        if (_options && _options.length >= 1) {
+        if (_options && _options.length > 1) {
           // Check for duplicate
           for (var i = 0; i < _options.length; ++i) {
             var option = _options[i];
@@ -28,6 +28,9 @@ angular.module("starter.services", [])
       },
       get: function() {
         return _options;
+      },
+      clearOptions: function() {
+        _options = [];
       },
       remove: function(optionToRemove) {
         for (var i = 0; i < _options.length; ++i) {
@@ -47,11 +50,9 @@ angular.module("starter.services", [])
         return _task;
       },
       spliceRandom: function() {
-        if (_options && _options.length > 1) {
-          var index = Math.floor(Math.random() * (_options.length + 1 - 1));
-          var option = _options.splice(index, 1);
-          return option;
-        }
+        var index = Math.floor(Math.random() * (_options.length + 1 - 1));
+        var option = _options.splice(index, 1);
+        return option;
       },
       spliceRandoms: function(numOptions) {
         if (_options && _options.length > 1 &&
@@ -70,7 +71,10 @@ angular.module("starter.services", [])
         return options;
       },
       getChosenOptions: function() {
-        return _chosenOptions;
+        if (_chosenOptions && _chosenOptions.length > 1) {
+          return _chosenOptions;
+        }
+        return _chosenOptions.toString();
       },
       setChosenOptions: function(options) {
         _chosenOptions = options;
