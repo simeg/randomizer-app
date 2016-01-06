@@ -5,8 +5,11 @@
       <span id="result-movie-rating">{{rating}}</span>
       <i class="icon ion-heart" id="icon-rating"></i>
     </span>
-    <span id="result-movie-title-small" ng-if="rating && synopsis">{{title}} ({{year}})</span>
-    <span id="result-movie-title-large" ng-if="!rating && !synopsis">{{title}}</span>
+    <span id="result-movie-title-small-container" ng-if="rating && synopsis">
+      <div class="result-movie-title">{{title}}</div>
+      <div class="result-movie-year">({{year}})</div>
+    </span>
+    <span id="result-movie-title-large-container" ng-if="!rating && !synopsis">{{title}}</span>
   </div>
 
   <div class="item item-image" ng-if="posterUrl">

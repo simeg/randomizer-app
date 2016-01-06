@@ -107,8 +107,8 @@ angular.module('starter.directives', [])
         const PLACEHOLDER_POSTER = "placeholder_poster_url"; // TODO
 
         function tempInit() {
-          scope.addMovie("Titanic");
-          scope.addMovie("Rambo");
+          scope.addMovie("Lord of the rings");
+          scope.addMovie("Lord of the rings:");
           getMovieList();
         }
 

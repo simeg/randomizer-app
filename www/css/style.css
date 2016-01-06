@@ -72,7 +72,7 @@
   margin-right: 21px;
 }
 
-#result-movie-title-small {
+#result-movie-title-small-container {
   display: inline-block;
   margin: 0;
   width: 252px;
@@ -80,13 +80,27 @@
   font-weight: 500;
 }
 
-#result-movie-title-large {
+#result-movie-title-large-container {
   display: inline-block;
   font-size: 36px;
   font-weight: 500;
   text-align: center;
   white-space: normal;
   line-height: 36px;
+}
+
+.result-movie-title {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 207px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result-movie-year {
+  display: inline-block;
+  vertical-align: top;
 }
 
 #result-movie-poster {
@@ -96,21 +110,20 @@
 }
 
 #result-movie-description {
-  max-height: 100px;
   white-space: normal;
 }
 
 #result-movie-rating {
   font-size: 17px;
   position: absolute;
-  top: 14px;
-  left: 17px;
+  top: 13px;
+  left: 18px;
   color: white;
 }
 
 #icon-rating {
   position: absolute;
-  left: 7px;
+  left: 8px;
   color: black;
   top: 0;
   font-size: 54px;
