@@ -57,9 +57,11 @@ angular.module('starter.controllers', [])
 
       $scope.movie = {};
       $scope.movie.title = movie["Title"];
+      $scope.movie.year = movie["Year"];
       $scope.movie.synopsis = movie["Plot"];
       $scope.movie.rating = movie["imdbRating"];
       $scope.movie.posterUrl = movie["Poster"];
+      console.log(movie);
     }
 
     $scope.onSwipeRight = function() {

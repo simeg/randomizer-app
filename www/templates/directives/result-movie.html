@@ -1,8 +1,11 @@
 <div class="list card">
 
-  <div class="item">
-    <span id="result-movie-rating" ng-if="rating">{{rating}}</span>
-    <span id="result-movie-title-small" ng-if="rating && synopsis">{{title}}</span>
+  <div class="item" id="result-header-container">
+    <span id="result-movie-rating-container" ng-if="rating">
+      <span id="result-movie-rating">{{rating}}</span>
+      <i class="icon ion-heart" id="icon-rating"></i>
+    </span>
+    <span id="result-movie-title-small" ng-if="rating && synopsis">{{title}} ({{year}})</span>
     <span id="result-movie-title-large" ng-if="!rating && !synopsis">{{title}}</span>
   </div>
 

@@ -106,6 +106,12 @@ angular.module('starter.directives', [])
         const LOADING_TIME = 1000;
         const PLACEHOLDER_POSTER = "placeholder_poster_url"; // TODO
 
+        function tempInit() {
+          scope.addMovie("Titanic");
+          scope.addMovie("Rambo");
+          getMovieList();
+        }
+
         function initScope() {
           scope.movieList = [];
           scope.settings = {};
@@ -182,6 +188,7 @@ angular.module('starter.directives', [])
         }
 
         initScope();
+        tempInit();
       },
       templateUrl: "templates/directives/randomize-movie.html"
     }
@@ -192,6 +199,7 @@ angular.module('starter.directives', [])
       restrict: "E",
       scope: {
         title: "=",
+        year: "=",
         synopsis: "=",
         rating: "=",
         posterUrl: "="
