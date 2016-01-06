@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
       $scope.movie.year = movie["Year"];
       $scope.movie.synopsis = movie["Plot"];
       $scope.movie.rating = movie["imdbRating"];
-      $scope.movie.posterUrl = movie["Poster"];
+      $scope.movie.posterUrl = movie["Poster"] === "N/A" ? null : movie["Poster"];
       console.log(movie);
     }
 

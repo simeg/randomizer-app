@@ -24,7 +24,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
-        console.log("State changed from [" + fromState.name + "] to [" + toState.name + "]");
+        console.debug("State changed from [" + fromState.name + "] to [" + toState.name + "]");
       });
   })
 
