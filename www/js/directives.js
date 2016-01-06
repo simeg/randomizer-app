@@ -74,10 +74,10 @@ angular.module('starter.directives', [])
             Options.setTask(task);
 
             if (scope.settings.isMulti) {
-              var randomNames = Options.spliceRandoms(nrOfPeople);
+              var randomNames = Options.getRandoms(nrOfPeople);
               Options.setChosenOptions(randomNames);
             } else {
-              var randomName = Options.spliceRandom();
+              var randomName = Options.getRandom();
               Options.setChosenOptions(randomName);
             }
 
@@ -151,7 +151,7 @@ angular.module('starter.directives', [])
 
         scope.getRandomMovie = function() {
           if (scope.movieList && scope.movieList.length >= 2) {
-            var randomMovieTitle = Options.spliceRandom();
+            var randomMovieTitle = Options.getRandom();
 
             var moviePromise = OMDb.searchMovie(randomMovieTitle);
             moviePromise.then(function(response) {

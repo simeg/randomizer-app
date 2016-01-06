@@ -49,12 +49,12 @@ angular.module("starter.services", [])
       getTask: function() {
         return _task;
       },
-      spliceRandom: function() {
+      getRandom: function() {
         var index = Math.floor(Math.random() * (_options.length + 1 - 1));
-        var option = _options.splice(index, 1);
+        var option = _options[index];
         return option;
       },
-      spliceRandoms: function(numOptions) {
+      getRandoms: function(numOptions) {
         if (_options && _options.length > 1 &&
           numOptions > _options.length) {
           console.debug("Trying to get more options than available");
