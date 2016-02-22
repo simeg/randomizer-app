@@ -1,4 +1,12 @@
 {
   "name": "randomizer",
-  "app_id": ""
+  "app_id": "",
+    "gulpStartupTasks": [
+      "watch"
+    ],
+    "watchPatterns": [
+      "www/*",
+      "!www/lib/**/*",
+      "!node_modules/**/*"
+    ]
 }
