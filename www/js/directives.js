@@ -90,7 +90,7 @@ angular.module('starter.directives', [])
         };
 
         initScope();
-        initTempData();
+        //initTempData();
 
       },
       templateUrl: "templates/directives/randomize-task.html"
@@ -188,7 +188,7 @@ angular.module('starter.directives', [])
         }
 
         initScope();
-        tempInit();
+        //tempInit();
       },
       templateUrl: "templates/directives/randomize-movie.html"
     }
@@ -222,6 +222,9 @@ angular.module('starter.directives', [])
     }
 
   });
+
+
+/* ----- SEE LINE 72 ----- */
 
 /*
  scope.randomizePerson = function() {
